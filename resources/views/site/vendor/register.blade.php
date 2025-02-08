@@ -141,11 +141,20 @@
             </div>
             <div class="lg:mb-5 mb-3.5">
                 <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">Gender</label>
-                <input type="radio" id="Male" name="gender" class="ml-10" value="Male">
+                
+                <input type="radio" id="Male" name="gender" class="ml-10" value="Male"
+                    {{ old('gender', 'Male') == 'Male' ? 'checked' : '' }} required>
                 <label for="Male" class="mt-1">Male</label>
-                <input type="radio" id="Female" name="gender" class="ml-5" value="Female">
+            
+                <input type="radio" id="Female" name="gender" class="ml-5" value="Female"
+                    {{ old('gender') == 'Female' ? 'checked' : '' }}>
                 <label for="Female" class="mt-1">Female</label>
+            
+                @error('gender')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
             </div>
+            
             <div class="flex lg:mt-52p mt-9 mb-5">
                 <div class="primary-bg-color w-2p mt-2p h-23p ltr:mr-2 rtl:ml-2"></div>
                 <p class="text-gray-12 uppercase dm-bold font-bold lg:text-lg text-base">{{ __('Shop Details') }}</p>
@@ -153,21 +162,30 @@
             <div class="lg:mb-5 mb-3.5">
                 <div class="w-full">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12">Organization Field</label>
-                    <select name="organization_type" id="Organization Type" class="border-gray-2 mt-1.5 lg:mt-1p rounded-sm w-full h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control border focus:border-gray-12 addressSelect sl_common_bx" >
-                        <option value="Manufacturer">Manufacturer</option>
-                        <option value="Retailer">Retailer / Dealer & Distributor / Trader / Transport / Wholesaler</option>
+                    <select name="organization_type" id="Organization Type" class="border-gray-2 mt-1.5 lg:mt-1p rounded-sm w-full h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control border focus:border-gray-12 addressSelect sl_common_bx" required oninvalid="this.setCustomValidity('This field is required.')">
+                        @foreach(getOrgType() as $key => $value)
+                            <option value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
                     </select>
+                    @error('organization_type')
+                        <span class="password-validation-error block text-11 mt-1 text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="lg:mb-5 mb-3.5 OzType">
                 <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">Business Organization Type</label>
-                <input type="radio" id="Corporation" name="business_type" class="ml-10" value="Corporation">
-                <label for="Corporation" class="mt-1">Corporation </label>
-                <input type="radio" id="Partnership" name="business_type" class="ml-10" value="Partnership">
-                <label for="Partnership" class="mt-1">Partnership</label>
-                <input type="radio" id="Proprietorship" name="business_type" class="ml-10" value="Proprietorship">
-                <label for="Proprietorship" class="mt-1">Sole Proprietorship </label>
+                
+                @foreach(getBusinessTypes() as $key => $value)
+                    <input type="radio" id="{{ $key }}" name="business_type" class="ml-10" value="{{ $key }}"
+                        {{ old('business_type', array_key_first(getBusinessTypes())) == $key ? 'checked' : '' }}>
+                    <label for="{{ $key }}" class="mt-1">{{ $value }}</label>
+                @endforeach
+            
+                @error('business_type')
+                    <span class="password-validation-error block text-11 mt-1 text-red-500">{{ $message }}</span>
+                @enderror
             </div>
+            
             <div class="grid lg:grid-cols-2 grid-cols-1 lg:gap-3">
                 <div class="lg:order-none lg:mb-3 mb-3.5">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">{{ __('Shop Name') }}
@@ -181,19 +199,27 @@
                 </div>
                 <div class="lg:order-none lg:mb-3 mb-3.5">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">Shop Number </label>
-                        <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" type="number" name="shop_number" placeholder="Shop Number">
-              
+                        <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" type="number" name="shop_number" placeholder="Shop Number" value="{{ old('shop_number') }}" required oninvalid="this.setCustomValidity('This field is required.')">
+                    @error('shop_number')
+                        <span class="password-validation-error block text-11 mt-1 text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="grid lg:grid-cols-2 grid-cols-1 lg:gap-3">
                 <div class="lg:order-none lg:mb-3 mb-3.5">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">Shop Email
                     </label>
-                    <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" type="email" placeholder="Shop Email">
+                    <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" type="email" name="shop_email" placeholder="Shop Email" value="{{ old('shop_email') }}" required oninvalid="this.setCustomValidity('This field is required.')">
+                    @error('shop_email')
+                        <span class="password-validation-error block text-11 mt-1 text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="lg:order-none lg:mb-3 mb-3.5">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">Website URL </label>
-                        <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" type="text" name="website" placeholder="Website URL">
+                        <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" type="text" name="website" placeholder="Website URL" required oninvalid="this.setCustomValidity('This field is required.')">
+                    @error('website')
+                        <span class="password-validation-error block text-11 mt-1 text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="lg:mb-5 mb-3.5">
@@ -207,7 +233,7 @@
                 <div class="w-full">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">{{ __('Country ') }}
                     </label>
-                    <select name="country" id="country" value="{{ old('country') }}" class="border-gray-2 mt-1.5 lg:mt-1p rounded-sm w-full h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control border focus:border-gray-12 addressSelect sl_common_bx"  oninvalid="this.setCustomValidity('{{ __('This field is required.') }}')">
+                    <select name="country" id="country" value="{{ old('country') }}" class="border-gray-2 mt-1.5 lg:mt-1p rounded-sm w-full h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control border focus:border-gray-12 addressSelect sl_common_bx" required oninvalid="this.setCustomValidity('{{ __('This field is required.') }}')">
                         <option value="">{{ __('Select Country') }}</option>
                     </select>
                     @error('country')
@@ -217,7 +243,7 @@
                 <div class="w-full">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">{{ __('State') . ' / ' . __('Province') }}
                     </label>
-                    <select name="state" id="state" value="{{ old('state') }}" class="border-gray-2 mt-1.5 lg:mt-1p rounded-sm w-full h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control border focus:border-gray-12 addressSelect sl_common_bx" oninvalid="this.setCustomValidity('{{ __('This field is required.') }}')">
+                    <select name="state" id="state" value="{{ old('state') }}" class="border-gray-2 mt-1.5 lg:mt-1p rounded-sm w-full h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control border focus:border-gray-12 addressSelect sl_common_bx" required oninvalid="this.setCustomValidity('{{ __('This field is required.') }}')">
                         <option value="">{{ __('Select State') }}</option>
                     </select>
                     @error('state')
@@ -228,7 +254,7 @@
             <div class="grid lg:grid-cols-2 grid-cols-1 lg:gap-3 gap-15p">
                 <div class="lg:mb-3 mt-3.5">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">{{ __('City ') }}</label>
-                    <select name="city" id="city" value="{{ old('city') }}" class="border-gray-2 rounded-sm w-full h-46p mt-1.5 lg:mt-1p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control border focus:border-gray-12 addressSelect sl_common_bx" oninvalid="this.setCustomValidity('{{ __('This field is required.') }}')">
+                    <select name="city" id="city" value="{{ old('city') }}" class="border-gray-2 rounded-sm w-full h-46p mt-1.5 lg:mt-1p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control border focus:border-gray-12 addressSelect sl_common_bx" required oninvalid="this.setCustomValidity('{{ __('This field is required.') }}')">
                         <option value="">{{ __('Select City') }}</option>
                     </select>
                     @error('city')
@@ -252,11 +278,11 @@
                 <div class="lg:order-none lg:mb-3 mb-3.5">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">Upload Personal Document 
                     </label>
-                    <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" name="personal_document" type="file" placeholder="upload">
+                    <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" name="personal_document" type="file" placeholder="upload" required oninvalid="this.setCustomValidity('This field is required.')">
                 </div>
                 <div class="lg:order-none lg:mb-3 mb-3.5">
                     <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">Upload Organization Document </label>
-                        <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" name="organization_document" type="file" placeholder="upload">
+                        <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" name="organization_document" type="file" placeholder="upload" required oninvalid="this.setCustomValidity('This field is required.')">
                 </div>
             </div>
             <div class="flex justify-center items-center mb-8 lg:mt-10 mt-8">
