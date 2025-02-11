@@ -93,7 +93,15 @@ class VendorController extends Controller
                 $request['vendor_id'] = $vendorId;
                 $alias = cleanedUrl($request->alias);
                 $request->merge(['alias' => $alias]);
-                (new Shop)->store($request->only('vendor_id', 'name', 'email', 'website', 'alias', 'phone', 'address'));
+
+                $shopData = $request->only([
+                    'name', 'vendor_id', 'website', 'alias', 'phone', 'address',
+                    'country', 'state', 'city', 'post_code', 'organization_type', 'business_type',
+                ]);
+                $shopData['email'] = $request->input('shop_email');
+                $shopData['phone'] = $request->input('shop_number');
+                $shopData['name'] = $request->input('shop_name');
+                (new Shop)->store($shopData);
             } else {
                 $vendor->restore();
             }
@@ -150,11 +158,11 @@ class VendorController extends Controller
             $this->setSessionValue($response);
             return redirect()->route('vendors.index');
         }
-
+        $shopData = Shop::getAll()->where('vendor_id', $id)->first();
         $data['commission'] = Commission::getAll()->first();
         $data['vendors'] = $vendor;
-        $data['shops'] = Shop::getAll()->where('vendor_id', $id);
-        $data['shop_exist'] = isset($request->shop) && !empty($request->shop) ? $request->shop : null;
+        $data['shops'] = $shopData;
+        $data['shop_exist'] = $shopData->id;
 
         return view('admin.vendors.edit', $data);
     }
@@ -176,13 +184,23 @@ class VendorController extends Controller
             return redirect()->route('vendors.index');
         }
 
-        (new Vendor)->updateVendor($request->data, $id);
-        $response = $this->messageArray(__('The :x has been successfully saved.', ['x' => __('Vendor')]), 'success');
+        if((new Vendor)->updateVendor($request->data, $id)){
+            $shopData = $request->only([
+                'name', 'vendor_id', 'website', 'alias', 'phone', 'address',
+                'country', 'state', 'city', 'post_code', 'organization_type', 'business_type',
+            ]);
+            $shopData['email'] = $request->input('shop_email');
+            $shopData['phone'] = $request->input('shop_number');
+            $shopData['name'] = $request->input('shop_name');
+            $response = (new Shop())->updateShop($shopData, $request->shop);
+            $response = $this->messageArray(__('The :x has been successfully saved.', ['x' => __('Vendor')]), 'success');
+        }
+        
         $this->setSessionValue($response);
 
-        if ($request->shop) {
-            return redirect()->route('shop.index');
-        }
+        // if ($request->shop) {
+        //     return redirect()->route('shop.index');
+        // }
 
         return redirect()->route('vendors.index');
     }

@@ -215,8 +215,8 @@
                     @enderror
                 </div>
                 <div class="lg:order-none lg:mb-3 mb-3.5">
-                    <label class="text-sm dm-sans font-medium capitalize text-gray-12 require-profile">Website URL </label>
-                        <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" type="text" name="website" placeholder="Website URL" required oninvalid="this.setCustomValidity('This field is required.')">
+                    <label class="text-sm dm-sans font-medium capitalize text-gray-12 ">Website URL </label>
+                        <input class="border-gray-2 rounded-sm w-full mt-1.5 lg:mt-1p h-46p roboto-medium pl-18p font-medium text-sm text-gray-10 form-control focus:border-gray-12" type="text" name="website" placeholder="Website URL">
                     @error('website')
                         <span class="password-validation-error block text-11 mt-1 text-red-500">{{ $message }}</span>
                     @enderror
