@@ -17,7 +17,7 @@ class VendorFilter extends Filter
      * @var array
      */
     protected $filterRules = [
-        'status' => 'in:Active,Inactive,Pending',
+        'status' => 'in:Active,Inactive,Pending,Rejected,Modified',
     ];
 
     /**

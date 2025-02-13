@@ -116,6 +116,7 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::match(['GET', 'POST'], 'vendors/import', 'VendorController@import')->name('vendors.import');
     Route::get('vendors/pdf', 'VendorController@pdf')->name('vendors.pdf');
     Route::get('vendors/csv', 'VendorController@csv')->name('vendors.csv');
+    Route::post('vendors/updateStatus', 'VendorController@updateStatus')->name('vendors.updateStatus');
 
     // Brand
     Route::get('brands', 'BrandController@index')->name('brands.index');

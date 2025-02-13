@@ -185,7 +185,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        {{-- <div class="form-group row">
                                             <label for="Status"
                                                 class="col-sm-3 control-label require">{{ __('Status') }}</label>
                                             <div class="col-sm-9">
@@ -202,7 +202,8 @@
                                                         {{ __('Inactive') }}</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
+                                        <input type="hidden" name="status" value="Pending">
                                         <div class="form-group row mt-3 ltr:ms-1 rtl:me-1">
                                             <label class="col-sm-3 control-label"></label>
                                             <div class="col-sm-9 px-0">

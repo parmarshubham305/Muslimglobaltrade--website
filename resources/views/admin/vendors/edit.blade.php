@@ -180,7 +180,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
+                                        <div class="form-group row d-none">
                                             <label for="Status"
                                                 class="col-sm-3 control-label require">{{ __('Status') }}</label>
                                             <div class="col-sm-9">

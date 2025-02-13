@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 // homepage
 Route::group(['middleware' => ['locale']], function () {
     Route::get('/', 'SiteController@index')->name('site.index');
+    
     Route::post('review/pagination/fetch', 'SiteController@fetch')->name('fetch.review');
     Route::post('change-language', 'DashboardController@switchLanguage')->middleware(['checkForDemoMode']);
 
@@ -34,6 +35,11 @@ Route::group(['middleware' => ['locale']], function () {
 
     // login register
     Route::get('login', 'LoginController@login');
+    Route::get('/thank-you', function () {
+        return view('site.thank-you');
+    })->name('thank.you');
+
+    Route::get('/thank-you', 'SiteController@thankyou')->name('site.thankYou');
     Route::get('user/login', 'LoginController@login')->name('site.login');
     Route::post('authenticate', 'LoginController@authenticate')->name('site.authenticate');
     Route::get('user-verify/{token}/{from?}', 'LoginController@verification')->name('site.verify');

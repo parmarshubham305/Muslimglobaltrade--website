@@ -490,6 +490,13 @@ class SiteController extends Controller
         return view('site.coupon.index', $data);
     }
 
+    public function thankyou()
+    {
+        $data = [];
+        return view('site.thank-you', $data);
+    }
+    
+
     public function getComponentProduct(Request $request)
     {
         if (! $request->get('component')) {

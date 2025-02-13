@@ -98,7 +98,7 @@ class RegisteredSellerController extends Controller
                 $user_id = $user->id;
             }
             // Store vendor information
-            $data['vendorData'] = $request->only('name', 'email', 'phone', 'formal_name', 'website', 'status');
+            $data['vendorData'] = $request->only('name', 'email', 'phone', 'formal_name', 'website');
             $vendorId = (new Vendor())->store($data);
 
             // Store shop information
@@ -291,11 +291,11 @@ class RegisteredSellerController extends Controller
             return redirect()->back()->withErrors(['otp' => __('Your OTP is invalid.')]);
         }
 
-        $user->update(['activation_otp' => null, 'activation_code' => null, 'status' => 'Active', 'email_verified_at' => now()]);
+        $user->update(['activation_otp' => null, 'activation_code' => null, 'status' => 'Pending', 'email_verified_at' => now()]);
         User::first()->notify(new SellerRequestToAdminNotification($user));
         Session::forget('martvill-seller');
 
-        return redirect()->route('login');
+        return redirect()->route('site.thankYou');
     }
 
     /**
@@ -316,7 +316,7 @@ class RegisteredSellerController extends Controller
             return $this->login($msg);
         }
 
-        (new User())->updateUser(['status' => 'Active', 'activation_code' => null, 'activation_otp' => null, 'email_verified_at' => now()], $user->id);
+        (new User())->updateUser(['status' => 'Pending', 'activation_code' => null, 'activation_otp' => null, 'email_verified_at' => now()], $user->id);
         $msg = __('Your account is activated, please login.');
         User::first()->notify(new SellerRequestToAdminNotification($user));
         Session::forget('martvill-seller');
