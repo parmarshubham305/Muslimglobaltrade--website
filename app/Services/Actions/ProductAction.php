@@ -942,8 +942,8 @@ class ProductAction
 
         $data = $this->postProcessRequestArray($data, $request);
 
-        
-        if(!isset($data['quantity_pack'])){
+
+        if (! isset($data['quantity_pack'])) {
             $data['quantity_pack'] = '';
         }
         $product->update($data);
@@ -1314,9 +1314,7 @@ class ProductAction
      *
      * @return void
      */
-    protected function updateRouteAndViews()
-    {
-    }
+    protected function updateRouteAndViews() {}
 
     /**
      * Process invalid dates
