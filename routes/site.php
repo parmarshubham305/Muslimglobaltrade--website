@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 // homepage
 Route::group(['middleware' => ['locale']], function () {
     Route::get('/', 'SiteController@index')->name('site.index');
-    
+
     Route::post('review/pagination/fetch', 'SiteController@fetch')->name('fetch.review');
     Route::post('change-language', 'DashboardController@switchLanguage')->middleware(['checkForDemoMode']);
 
@@ -146,7 +146,7 @@ Route::group(['middleware' => ['locale']], function () {
     // shipping
     Route::get('/get-shipping', 'SiteController@getShipping');
 
-    //downloadable link
+    // downloadable link
     Route::get('/download', 'SiteController@download')->name('site.downloadProduct');
 
     // Pages
@@ -154,7 +154,7 @@ Route::group(['middleware' => ['locale']], function () {
 
     Route::get('/get-component-product', 'SiteController@getComponentProduct')->name('ajax-product');
 
-    //all categories
+    // all categories
     Route::get('/categories', 'SiteController@allCategories')->name('all.categories');
 });
 

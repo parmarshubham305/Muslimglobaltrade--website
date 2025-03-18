@@ -244,13 +244,13 @@ class Vendor extends Model
 
         $vendor->update($data['vendorData']);
         $vendor = Vendor::where('id', $id)->first();
-        if(isset($data['vendorMetaData'])){
+        if (isset($data['vendorMetaData'])) {
             $vendor->setMeta($data['vendorMetaData']);
         }
-        
+
         $vendor->save();
         $arr = ['vendor_logo', 'cover_photo'];
-        if(isset($data['vendorMetaData'])){
+        if (isset($data['vendorMetaData'])) {
             foreach ($data['vendorMetaData'] as $key => $value) {
                 if (! in_array($key, $arr)) {
                     continue;

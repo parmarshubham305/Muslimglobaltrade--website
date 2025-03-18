@@ -4,7 +4,12 @@
         <div class="my-4 flex flex-wrap md:justify-start gap-3 mt-5">
             {{-- not external product --}}
             @if (!$product->isExternalProduct() && isset($meta['individual_sale']) && $meta['individual_sale'] == 0)
-                <div class="flex justify-start items-center gap-2 lg:gap-0">
+
+                @php
+                    $packs = (!empty($product->quantity_pack)) ? $product->quantity_pack : [];
+                @endphp
+            
+                {{-- <div class="flex justify-start items-center gap-2 lg:gap-0">
                     <p class="lg:hidden text-sm roboto-medium text-gray-12">{{ __('Quantity') }}:</p>
                     <div class="flex flex-wrap w-36 lg:w-135p h-10 lg:h-54p text-xl border rounded"
                         id="cart-item-details-{{ $code }}">
@@ -38,6 +43,29 @@
                                 </svg>
                             </span>
                         </a>
+                    </div>
+                </div> --}}
+
+                <div class="md:flex flex-wrap hidden">
+                    <div class="radio-buttons">
+                        @foreach ($packs as $pack)
+                        <label class="custom-radio mr-1 cart-item-quantity">
+                            <input type="radio" class="display-none" name="quantity_pack" value="{{$pack}}" />
+                            <span class="radio-btn p-1 border border-gray-2 rounded mt-2 dm-sans cursor-pointer relative inline-block font-medium text-center lg:text-sm text-xs ltr:pl-18p rtl:pr-18p text-gray-10">
+                                <svg class="ltr:mr-13p rtl:ml-13p neg-transition-scale absolute opacity-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="11" height="9" viewBox="0 0 11 9" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11 1.41885L4.38163 9L8.22563e-07 4.81748L1.64177 3.25031L4.22561 5.71673L9.21633 -4.01642e-07L11 1.41885Z" fill="currentColor" />
+                                </svg>
+                                <div class="ltr:lg:ml-13p ltr:ml-2 rtl:lg:mr-18p rtl:mr-2">
+                                    <div class="flex items-center">
+                                        <span class="lg:my-0 my-3 ltr:ml-2 ltr:lg:mr-2 ltr:mr-9 rtl:mr-2 rtl:lg:ml-0 rtl:ml-9">{{ $pack . '  '. __('Qty') }}</span>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                        @endforeach
+                    </div>
+                    <div class="flex-initial px-2 text-white bg-primary mb-2 rounded-sm ltr:mr-2 rtl:ml-2 mt-2">
+                        <a href="javascript:void(0)"><p class="roboto-medium font-medium text-xs py-1"> Inquiry Now</p></a>
                     </div>
                 </div>
             @endif

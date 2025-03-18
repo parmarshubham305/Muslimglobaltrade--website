@@ -53,6 +53,71 @@
                         <input type="text" placeholder="0" class="form-control inputFieldDesign" maxlength="8"
                             name="total_stocks" value="{{ isset($product) ? $product->total_stocks : '' }}">
                     </div>
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <label class="sp-title control-label">{{ __('Pack of quantity ') }}</label>
+                        </div>
+                        {{-- <input type="text" placeholder="0" class="form-control inputFieldDesign" maxlength="8"
+                            name="quantity_pack" value="{{ isset($product) ? $product->quantity_pack : '' }}"> --}}
+
+                            <div class="table-responsive">
+                                <table class="options table table-bordered" id="attribute-value">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>{{ __('Quantity') }}</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="quantity_pack">
+                                        @php $rowId = 1;
+                                        // dd($product->quantity_pack);
+                                        @endphp
+                                        @if(isset($product->quantity_pack) && $product->quantity_pack)
+                                        @foreach ($product->quantity_pack as $value)
+                                            <tr draggable="false" id="rowid-{{ $rowId }}">
+                                                <td class="text-center" id="attribute-edit-container">
+                                                    <i class="fa fa-bars"></i>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="quantity_pack[]" value="{{ $value }}" class="form-control inputFieldDesign" required id="valueChk-{{ $rowId }}">
+                                                        <span id="value-text-{{ $rowId }}" class="validationMsg"></span>
+                                                        <input type="hidden" name="row_identify[]" value="{{ $rowId }}">
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" id="delete-value" class="btn btn-xs btn-danger delete-row" data-row-id={{ $rowId++ }} data-bs-toggle="tooltip" data-bs-title="Delete Value" data-original-title="">
+                                                        <i class="feather icon-trash-2"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        <input type="hidden" id="row_id" value="{{ $rowId }}">
+                                        @else
+                                        <tr draggable="false" id="rowid-1">
+                                            <td class="text-center">
+                                                <i class="fa fa-bars"></i>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" name="quantity_pack[]" class="form-control inputFieldDesign" required>
+                                                    <span id="value-text-1" class="validationMsg"></span>
+                                                    <input type="hidden" name="row_identify[]" value="1">
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" id="delete-value" class="btn btn-xs btn-danger delete-row" data-row-id=1 data-bs-toggle="tooltip" data-bs-title="Delete Value" data-bs-original-title="">
+                                                    <i class="feather icon-trash-2"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        </tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-default" id="add-new-value">{{ __('New') }}</button>
+                    </div>
                     <div class="mt-1">
                         <div class="d-flex align-items-center">
                             <label class="sp-title control-label pe-2">{{ __('Allow backorders?') }}</label>
@@ -156,3 +221,48 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).on("click", "#add-new-value", function (event) {
+        event.preventDefault();
+        addAttributeValue();
+    });
+    var rowid = 2;
+    if (
+        $(".main-body .page-wrapper").find("#attribute-edit-container").length
+    ) {
+        rowid = $("#row_id").val();
+    }
+   
+    $(document).on("click", ".delete-row", function (e) {
+        e.preventDefault();
+        var idtodelete = $(this).attr("data-row-id");
+        // console.log($('.delete-row').length);
+        if($('.delete-row').length == 1){
+
+        }
+        
+        $("#rowid-" + idtodelete).remove();
+    });
+    function addAttributeValue() {
+        let attributValue = `<tr draggable="false" class="" id="rowid-${rowid}">
+                                <td class="text-center">
+                                    <i class="fa fa-bars"></i>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" name="quantity_pack[]" class="form-control inputFieldDesign" required id="valueChk-${rowid}">
+                                        <span id="value-text-${rowid}" class="validationMsg"></span>
+                                        <input type="hidden" name="row_identify[]" value="${rowid}">
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-xs btn-danger delete-row" data-row-id="${rowid}" data-bs-toggle="tooltip" data-title="Delete Value" data-original-title="" title="">
+                                        <i class="feather icon-trash-2"></i>
+                                    </button>
+                                </td>
+                            </tr>`;
+        rowid++;
+        $("#quantity_pack").append(attributValue);
+    }
+</script>

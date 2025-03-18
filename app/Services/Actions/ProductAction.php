@@ -942,6 +942,10 @@ class ProductAction
 
         $data = $this->postProcessRequestArray($data, $request);
 
+        
+        if(!isset($data['quantity_pack'])){
+            $data['quantity_pack'] = '';
+        }
         $product->update($data);
 
         return $product;

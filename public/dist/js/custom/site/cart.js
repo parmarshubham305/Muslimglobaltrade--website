@@ -112,6 +112,15 @@ $(document).on('click', '.disable_a_href', function() {
     })
 })
 
+ 
+$(document).on('click', 'input[name="quantity_pack"]', function() {
+    // alert($(this).val());
+    let itemCode = $(this).val();
+    // if (parseFloat($('#cart-item-details-'+itemCode+' .cart-item-quantity').text()) >= 1 && parseInt($(this).attr('data-isIndividual')) != 1 || parseFloat($('#cart-item-details-'+itemCode+' .cart-item-quantity').text()) < 1) {
+    qty = itemCode;
+        // $('#cart-item-details-'+itemCode+' .cart-item-quantity').text(qty);
+    // }
+});
 $(document).on('click', '.cart-item-qty-inc', function() {
     let itemCode = $(this).attr('data-itemCode');
     if (parseFloat($('#cart-item-details-'+itemCode+' .cart-item-quantity').text()) >= 1 && parseInt($(this).attr('data-isIndividual')) != 1 || parseFloat($('#cart-item-details-'+itemCode+' .cart-item-quantity').text()) < 1) {
@@ -1071,12 +1080,14 @@ if ($('.main-body .page-wrapper').find('#cart-details-container').length) {
         if(isAllChildChecked(element)) {
             element.classList.add("border-gray-12");
             element.querySelector('.cart-shop').checked = true;
+        }else {
+            selectChildItems(element);
         }
     });
 
     updateTotalBox();
 
-    checkingCheckbox(false);
+    checkingCheckbox(true);
 }
 
 function couponDisplay()

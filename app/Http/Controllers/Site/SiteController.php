@@ -493,9 +493,9 @@ class SiteController extends Controller
     public function thankyou()
     {
         $data = [];
+
         return view('site.thank-you', $data);
     }
-    
 
     public function getComponentProduct(Request $request)
     {

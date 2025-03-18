@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author TechVillage <support@techvill.org>
  *
@@ -30,6 +31,7 @@ class VendorListDataTable extends DataTable
     public function ajax(): JsonResponse
     {
         $vendors = $this->query();
+
         // dd($vendors->toSql(), $vendors->getBindings());
         return datatables()
             ->of($vendors)
@@ -51,14 +53,15 @@ class VendorListDataTable extends DataTable
                 return $html;
             })->editColumn('status', function ($vendors) {
                 $status = $vendors->status;
-                if($vendors->status == "Active"){
-                    $status = "Approve";
+                if ($vendors->status == 'Active') {
+                    $status = 'Approve';
                 }
+
                 return statusBadges(lcfirst($status)) . ' <span class="header-btn mr-2 cursor_pointer"
-                                                    id="'. $vendors->id .'" name="'.$vendors->name .'"
-                                                    status="'. $status .'" data-bs-toggle="modal"
+                                                    id="' . $vendors->id . '" name="' . $vendors->name . '"
+                                                    status="' . $status . '" data-bs-toggle="modal"
                                                     data-placement="top" data-bs-target="#edit-status"
-                                                    title="'. __('Edit Status') .'">
+                                                    title="' . __('Edit Status') . '">
                                                     <i class="feather icon-edit neg-transition-scale-svg "></i>
                                                 </span>';
             })->addColumn('action', function ($vendors) {

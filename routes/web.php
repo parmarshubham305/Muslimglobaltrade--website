@@ -103,7 +103,7 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::delete('product/delete/{code}/action', 'ProductController@forceDeleteProduct')->middleware(['checkForDemoMode'])->name('product.force-delete');
     Route::get('pending/products', 'ProductController@index')->name('product.pending');
 
-    //duplicate product
+    // duplicate product
     Route::get('product/duplicate/{code}', 'ProductController@duplicate')->name('product.duplicate');
 
     // Vendor Admin Routes
@@ -265,13 +265,13 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::post('product-setting/inventory', 'ProductSettingController@inventory')->name('product.setting.inventory');
     Route::post('product-setting/vendor', 'ProductSettingController@vendor')->name('product.setting.vendor');
 
-    //Order Setting
+    // Order Setting
     Route::match(['GET', 'POST'], 'order-setting', 'OrderSettingController@index')->name('order.setting.option');
 
-    //Invoice Setting
+    // Invoice Setting
     Route::match(['GET', 'POST'], 'invoice-setting', 'InvoiceSettingController@index')->name('invoice.setting.option');
 
-    //Account Setting
+    // Account Setting
     Route::match(['GET', 'POST'], 'account-setting', 'AccountSettingController@index')->name('account.setting.option');
 
     // downloadable products
@@ -343,11 +343,11 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
 
     Route::get('notifications/log', 'NotificationController@log')->name('notifications.log');
     Route::delete('notifications/log/{id}', 'NotificationController@destroyLog')->name('notifications.log.destroy');
-    
+
     Route::get('notifications/setting', 'NotificationController@setting')->name('notifications.setting');
     Route::post('notifications/setting', 'NotificationController@updateSetting')->name('notifications.setting.update');
 
-    //barcode
+    // barcode
     Route::match(['get', 'post'], '/barcode/product', 'BarcodeController@product')->name('barcode.product');
     Route::match(['get', 'post'], '/barcode/settings', 'BarcodeController@settings')->name('barcode.settings');
     Route::match(['get', 'post'], '/barcode/product-search', 'BarcodeController@search')->name('barcode.product.search');

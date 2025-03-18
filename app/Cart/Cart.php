@@ -438,6 +438,7 @@ class Cart
      */
     public static function getSelected()
     {
+        // dd(Cache::get(config('cache.prefix') . '.selected.' . self::userId()));
         return ! empty(self::userId()) ? Cache::get(config('cache.prefix') . '.selected.' . self::userId()) : Cache::get(config('cache.prefix') . '.selected.' . getUniqueAddress());
     }
 

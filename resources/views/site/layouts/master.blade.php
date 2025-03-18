@@ -183,7 +183,7 @@
     <script src="{{ asset('frontend/assets/js/alpine.min.js') }}" defer></script>
     <script src="{{ asset('dist/js/custom/site/drawer.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/script.min.js') }}"></script>
-    <script src="{{ asset('dist/js/custom/site/cart.min.js') }}"></script>
+    <script src="{{ asset('dist/js/custom/site/cart.js') }}"></script>
     <script src="{{ asset('dist/js/custom/site/lang.min.js') }}"></script>
     <script src="{{ asset('dist/js/site-nav.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/sweet-alert2.min.js') }}"></script>

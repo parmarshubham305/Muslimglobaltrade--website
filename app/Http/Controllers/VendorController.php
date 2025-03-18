@@ -285,38 +285,38 @@ class VendorController extends Controller
     {
         // Default response
         $data = ['status' => 'fail', 'message' => __('Invalid Request')];
-    
+
         // Extract values properly
-        $id = $request->input("id"); // Fix: Extract as scalar value, not array
-        $vendorStatus = $request->input("status_id");
-    
+        $id = $request->input('id'); // Fix: Extract as scalar value, not array
+        $vendorStatus = $request->input('status_id');
+
         // Set default user status
-        $userStatus = "Inactive";
-    
+        $userStatus = 'Inactive';
+
         // Determine status
-        if ($vendorStatus === "Approve") {
-            $vendorStatus = $userStatus = "Active";
-        } elseif ($vendorStatus === "Rejected") {
+        if ($vendorStatus === 'Approve') {
+            $vendorStatus = $userStatus = 'Active';
+        } elseif ($vendorStatus === 'Rejected') {
 
         }
-    
+
         // Find Vendor
         $vendor = Vendor::find($id);
-        if (!$vendor) {
+        if (! $vendor) {
             return redirect()->route('vendors.index')->with('fail', __('Vendor not found.'));
         }
-    
+
         // Update Vendor status
         $vendor->status = $vendorStatus;
         $vendor->save(); // Fix: Ensure the vendor object is valid before saving
-    
+
         // Update VendorUser status
-        $vendorUser = VendorUser::where("vendor_id", $id)->first();
+        $vendorUser = VendorUser::where('vendor_id', $id)->first();
         if ($vendorUser) {
             $vendorUser->status = $userStatus;
             $vendorUser->save();
         }
-    
+
         // Update associated User status if VendorUser exists
         if ($vendorUser && $vendorUser->user_id) {
             $user = User::find($vendorUser->user_id);
@@ -325,11 +325,10 @@ class VendorController extends Controller
                 $user->save(); // Fix: Save only if user is found
             }
         }
-    
+
         // Set success message
         Session::flash('success', __('The :x has been successfully updated.', ['x' => __('Vendor')]));
-    
+
         return redirect()->route('vendors.index');
     }
-    
 }
