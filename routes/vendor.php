@@ -47,8 +47,10 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::get('/find-tags-in-ajax', 'ProductController@findTagsAjaxQuery')->name('vendor.findTagsAjax');
     Route::post('products/search/{type}', 'ProductController@search')->name('vendor.product.search');
 
-    //duplicate product
+    // duplicate product
     Route::get('product/duplicate/{code}', 'ProductController@duplicate')->name('vendor.product.duplicate');
+
+    Route::get('product-inquiry', 'InquiryController@index')->name('vendor.index');
 
     // Review
     Route::get('reviews', 'ReviewController@index')->name('vendor.reviews');
@@ -101,12 +103,12 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
         // Export products
         Route::match(['GET', 'POST'], '/export/products', 'ExportController@productExport')->name('epz.export.products');
 
-        //barcode
+        // barcode
         Route::match(['get', 'post'], '/barcode/product', 'BarcodeController@product')->name('barcode.product');
         Route::match(['get', 'post'], '/barcode/product-search', 'BarcodeController@search')->name('barcode.product.search');
     });
 
-    //activity
+    // activity
     Route::get('/activity', 'VendorController@loginActivity')->name('vendor.loginActivity');
 
     Route::name('vendor.')->group(function () {

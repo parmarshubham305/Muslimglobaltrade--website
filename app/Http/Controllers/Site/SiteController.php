@@ -479,6 +479,33 @@ class SiteController extends Controller
     }
 
     /**
+     * Product Quick view
+     *
+     * @return string|void
+     */
+    public function inquiry(Request $request, $code)
+    {
+        $request['code'] = $code;
+        $product = ProductAction::execute('getProductWithAttributeAndVariations', $request);
+        if (! $product) {
+            abort(404);
+        }
+        $data = (new ProductDetailResource($product))->toArray(null);
+        $data['product'] = $product;
+        $data['productView'] = true;
+        if (! empty($data)) {
+            if ($request->ajax()) {
+                return view('site.layouts.includes.inquiry_view', $data)->render();
+            }
+        }
+    }
+
+    public function inquiryStore(Request $request)
+    {
+        dd($request);
+    }
+
+    /**
      * Coupon
      *
      * @return render view

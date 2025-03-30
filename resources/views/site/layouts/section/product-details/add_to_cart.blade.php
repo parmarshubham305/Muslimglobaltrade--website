@@ -64,10 +64,15 @@
                         </label>
                         @endforeach
                     </div>
-                    <div class="flex-initial px-2 text-white bg-primary mb-2 rounded-sm ltr:mr-2 rtl:ml-2 mt-2">
-                        <a href="javascript:void(0)"><p class="roboto-medium font-medium text-xs py-1"> Inquiry Now</p></a>
+                    <div class="flex-initial px-2 text-white mb-2 rounded-sm ltr:mr-2 rtl:ml-2 mt-2">
+                        <button class="open-inquiry-modal"  data-itemCode="{{ $code }}">
+                            <p class="text-gray-12 font-medium py-1 p-2 inset-x-0 text-center text-11 primary-bg-color z-20">
+                                {{ __('Inquiry') }}</p>
+                        </button>
+
                     </div>
                 </div>
+                
             @endif
 
                 {{-- external product --}}
@@ -83,6 +88,9 @@
                                 </svg>
                                 <span class="ltr:pl-2 rtl:pr-2 p-5p dm-bold font-bold text-gray-12 text-lg">{{ isset($external_products['text']) && !empty($external_products['text']) ? $external_products['text'] : __('Buy Product') }}</span>
                             </button>
+
+                            
+
                         </a>
                     </div>
                     @endif
@@ -103,8 +111,16 @@
                             <span
                                 class="ltr:pl-2 rtl:pr-2 p-5p dm-bold font-bold text-gray-12 text-lg">{{ __('Add to Cart') }}</span>
                         </button>
+                        
                     </a>
+                    {{-- <button
+                        class="primary-bg-color font-bold w-full h-54p py-3 2xl:p-2 rounded flex justify-center items-center">
+                        <span class="ltr:pl-2 rtl:pr-2 p-5p dm-bold font-bold text-gray-12 text-lg">Request Quote</span>
+                    </button> --}}
                 @endif
+                <div id="inquiry-message" class="mt-4">
+
+                </div>
 
         </div>
     @elseif($product->isGroupedProduct())
@@ -264,3 +280,4 @@
     @endif
 
 </div>
+

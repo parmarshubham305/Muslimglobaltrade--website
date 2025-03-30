@@ -71,7 +71,6 @@
                                     </thead>
                                     <tbody id="quantity_pack">
                                         @php $rowId = 1;
-                                        // dd($product->quantity_pack);
                                         @endphp
                                         @if(isset($product->quantity_pack) && $product->quantity_pack)
                                         @foreach ($product->quantity_pack as $value)

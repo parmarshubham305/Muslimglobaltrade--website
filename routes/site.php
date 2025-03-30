@@ -124,6 +124,8 @@ Route::group(['middleware' => ['locale']], function () {
     // Quick View
     Route::get('product/quick-view/{id}', 'SiteController@quickView')->name('quickView');
 
+    Route::get('product/inquiry/{id}', 'SiteController@inquiry')->name('inquiry');
+
     // Notification
     Route::group(['as' => 'site.', 'prefix' => 'user'], function () {
         Route::get('notifications', 'NotificationController@index')->name('notifications.index');
@@ -194,6 +196,10 @@ Route::group(['middleware' => ['site.auth', 'locale', 'permission']], function (
     Route::get('user/addresses', 'AddressController@index')->name('site.address');
     Route::get('user/address/create', 'AddressController@create')->name('site.addressCreate');
     Route::post('user/address/store', 'AddressController@store')->name('site.addressStore');
+
+    Route::post('product/inquiry/store', 'InquiryController@store')->name('site.productInquiryStore');
+
+
     Route::get('user/address/edit/{id}', 'AddressController@edit')->name('site.addressEdit');
     Route::post('user/address/update/{id}', 'AddressController@update')->name('site.addressUpdate');
     Route::post('user/address/delete/{id}', 'AddressController@destroy')->name('site.addressDelete');

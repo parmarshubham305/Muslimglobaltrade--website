@@ -215,6 +215,11 @@ class Product extends Model
         return $this->belongsTo('App\Models\Vendor', 'vendor_id');
     }
 
+    public function inquiries()
+    {
+        return $this->hasMany('App\Models\Inquiry'::class, 'product_id');
+    }
+
     /**
      * Foreign key with Brand model
      *

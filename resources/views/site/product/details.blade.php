@@ -384,7 +384,7 @@
         @doAction('after_signle_product_detail', $definedData)
 
     </section>
-    <!-- Details section end -->
+
 @endsection
 @section('js')
     @php

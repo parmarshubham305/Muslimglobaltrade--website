@@ -1116,3 +1116,23 @@ function TaxDisplay()
         $('#customTax').addClass('display-none');
     }
 }
+
+$(document)
+    .off("click", ".open-inquiry-modal")
+    .on("click", ".open-inquiry-modal", function () {
+        $(".placeholder-loader").css("display", "block");
+        $(".item-view-content").css("display", "none");
+        $("#view-modal").css("display", "flex");
+        var itemCode = $(this).attr("data-itemCode");
+        $.ajax({
+            url: SITE_URL + "/product/inquiry/" + itemCode,
+            type: "GET",
+            success: function (data) {
+                isGroupProduct = 0;
+                $(".placeholder-loader").css("display", "none");
+                $(".item-view-content").css("display", "block");
+                $("#item-view-load").html(data);
+                $("#view-modal").css("display", "flex");
+            },
+        });
+    });

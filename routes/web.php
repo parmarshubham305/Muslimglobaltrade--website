@@ -93,6 +93,8 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::get('profile', 'UserController@profile')->name('users.profile');
     Route::post('user/update-profile-password/{id}', 'UserController@updateProfilePassword')->name('users.profilePassword');
 
+    Route::get('product-inquiry', 'InquiryController@log')->name('inquiry.log');
+
     // Product
     Route::get('products', 'ProductController@index')->name('product.index');
     Route::get('product/edit/{code}', 'ProductController@edit')->name('product.edit');
