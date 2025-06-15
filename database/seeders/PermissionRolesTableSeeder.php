@@ -2028,5 +2028,13 @@ class PermissionRolesTableSeeder extends Seeder
                 'role_id' => 3,
             ],
         ]);
+
+        \DB::table('permission_roles')->insert([
+            0 => [
+                'permission_id' => 254,
+                'role_id' => 5,
+            ],
+        ]);
+
     }
 }

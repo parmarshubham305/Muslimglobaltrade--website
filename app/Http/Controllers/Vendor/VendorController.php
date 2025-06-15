@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use App\DataTables\UserActivityDataTable;
 use App\Models\{
     Role,
+    Subscription,
     User,
     Vendor,
 };
@@ -176,5 +177,12 @@ class VendorController extends Controller
         $logTypes = ['USER LOGIN', 'USER LOGOUT'];
 
         return $dataTable->render('vendor.profile.login_activity', ['logTypes' => $logTypes]);
+    }
+
+    public function plan()
+    {
+        $data['plans'] = Subscription::get();
+
+        return view('vendor.plan', $data);
     }
 }

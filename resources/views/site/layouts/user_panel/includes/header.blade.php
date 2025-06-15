@@ -53,7 +53,7 @@
             </div>
         @endif
         @if (auth()->user()->role()->slug == 'super-admin' ||
-            (auth()->user()->role()->slug == 'vendor-admin' &&
+            ( (auth()->user()->role()->slug == 'vendor-admin' || auth()->user()->role()->slug == 'free') &&
             optional(auth()->user()->vendors()->first())->status == 'Active'))
             <div
                 class="flex md:right-5 right-24 absolute md:relative flex-col justify-center cursor-pointer ltr:ml-2 ltr:md:ml-4 ltr:lg:ml-5 ltr:xl:ml-16 rtl:mr-2 rtl:md:mr-4 rtl:lg:mr-5 rtl:xl:mr-16">

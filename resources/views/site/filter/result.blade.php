@@ -437,10 +437,10 @@
                                             </div>
                                         </div>
                                         @if (isset($isEnableProduct['badge']) && $isEnableProduct['badge'] == 1 && $product->type != 'Grouped Product')
-                                            <button class="open-view-modal hidden md:block" data-itemCode="{{ $product->code }}">
+                                            {{-- <button class="open-view-modal hidden md:block" data-itemCode="{{ $product->code }}">
                                                 <p class="z-20 text-gray-12 font-medium absolute inset-x-0 bottom-0 p-1.5 text-center text-sm primary-bg-color rounded-b">
                                                     {{ __('Quick View') }}</p>
-                                            </button>
+                                            </button> --}}
                                         @elseif(isset($isEnableProduct['badge']) && $isEnableProduct['badge'] == 1)
                                             <a href="{{ route('site.productDetails', ['slug' => $product->slug]) }}">
                                                 <p class="z-20 text-gray-12 font-medium absolute inset-x-0 bottom-0 p-1.5 text-center text-sm primary-bg-color rounded-b">

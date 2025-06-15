@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::post('dashboard/widget/option', 'DashboardController@setWidgetOption');
     Route::get('dashboard/widget/forget-cache', 'DashboardController@forgetWidget')->name('vendor.dashboard.forget_widget');
 
+
+
     // Vendor
     Route::get('profile', 'VendorController@profile')->name('vendor.profile');
     Route::post('profile-update/{id}', 'VendorController@update')->name('user.update');
@@ -51,6 +53,10 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::get('product/duplicate/{code}', 'ProductController@duplicate')->name('vendor.product.duplicate');
 
     Route::get('product-inquiry', 'InquiryController@index')->name('vendor.index');
+
+    Route::get('plan', 'VendorController@plan')->name('vendor.plan');
+
+    Route::get('quotes', 'QuoteController@index')->name('vendor.index');
 
     // Review
     Route::get('reviews', 'ReviewController@index')->name('vendor.reviews');

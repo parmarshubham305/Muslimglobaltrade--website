@@ -12,7 +12,13 @@
         <div class="navbar-content scroll-div">
             <ul class="nav pcoded-inner-navbar">
                 <?php
-                $menus = Modules\MenuBuilder\Http\Models\MenuItems::menus(3);
+                $menuId = 3;
+                if(auth()->user()->subscription_id == 1){
+                    $menuId= 5; 
+                } else if(auth()->user()->subscription_id == 2){
+                    $menuId= 6; 
+                }
+                $menus = Modules\MenuBuilder\Http\Models\MenuItems::menus($menuId);
                 $isAllowCategory = preference('vendor_category') ;
                 ?>
                 @foreach ($menus as $menu)

@@ -113,10 +113,11 @@
                         </button>
                         
                     </a>
-                    {{-- <button
+                    <button
+                        class="open-quote-modal"  data-itemCode="{{ $code }}"
                         class="primary-bg-color font-bold w-full h-54p py-3 2xl:p-2 rounded flex justify-center items-center">
-                        <span class="ltr:pl-2 rtl:pr-2 p-5p dm-bold font-bold text-gray-12 text-lg">Request Quote</span>
-                    </button> --}}
+                        <span class="ltr:pl-2 rtl:pr-2 p-5p dm-bold font-bold text-gray-12 text-lg">{{ __('Request Quote') }}</span>
+                    </button>
                 @endif
                 <div id="inquiry-message" class="mt-4">
 

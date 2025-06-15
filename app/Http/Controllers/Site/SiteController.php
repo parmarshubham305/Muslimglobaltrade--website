@@ -631,4 +631,26 @@ class SiteController extends Controller
 
         return view('site.all_categories.all_categories', $data);
     }
+
+    /**
+     * Product Quick view
+     *
+     * @return string|void
+     */
+    public function quote(Request $request, $code)
+    {
+        $request['code'] = $code;
+        $product = ProductAction::execute('getProductWithAttributeAndVariations', $request);
+        if (! $product) {
+            abort(404);
+        }
+        $data = (new ProductDetailResource($product))->toArray(null);
+        $data['product'] = $product;
+        $data['productView'] = true;
+        if (! empty($data)) {
+            if ($request->ajax()) {
+                return view('site.layouts.includes.quote_view', $data)->render();
+            }
+        }
+    }
 }

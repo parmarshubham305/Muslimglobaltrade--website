@@ -31,8 +31,10 @@ class MenuBuilderController extends Controller
         $data['menuId'] = isset($request->menu) ? $request->menu : '';
         if (! empty($data['menuId'])) {
             $data['menus'] = MenuItems::menus($data['menuId']);
+            // dd($data['menus']);
             $data['menuName'] = AdminMenus::select('name')->where('id', $data['menuId'])->first();
             $data['adminMenus'] = Menus::where('permission', 'LIKE', '%"menu_level":"' . $data['menuId'] . '"%')->get();
+            // dd($data['adminMenus']);
             if ($data['menuId'] == 4) { // 4 reffered to frontend page menu, We will upgrade it later
                 $data['pages'] = Page::active()->get();
             }

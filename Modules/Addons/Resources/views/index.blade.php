@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="{{ asset('Modules/Addons/Resources/assets/css/addon.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('../Modules/Addons/Resources/assets/css/addon.min.css') }}">
 
 @php
     $addons = \Modules\Addons\Entities\Addon::all();
@@ -186,4 +186,4 @@
     </div>
 </div>
 
-<script src="{{ asset('Modules/Addons/Resources/assets/js/addons.min.js') }}"></script>
+<script src="{{ asset('../Modules/Addons/Resources/assets/js/addons.min.js') }}"></script>

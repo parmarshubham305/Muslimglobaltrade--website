@@ -87,7 +87,6 @@
         <p class="field-css-classes description description-thin">
             <label
                 for="edit-menu-item-attribute-{{ $m->id }}">
-                {{ __('Permission (optional)') }}
                 <?php
                 $jsonDecode = isset($m->params) && !empty($m->params) ? json_decode(json_encode($m->params),true) : '';
                 $perm = '';

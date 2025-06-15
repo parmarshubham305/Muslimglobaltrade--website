@@ -125,6 +125,8 @@ Route::group(['middleware' => ['locale']], function () {
     Route::get('product/quick-view/{id}', 'SiteController@quickView')->name('quickView');
 
     Route::get('product/inquiry/{id}', 'SiteController@inquiry')->name('inquiry');
+    Route::get('product/quote/{id}', 'SiteController@quote')->name('quote');
+    Route::post('product/quote/store', 'QuoteController@store')->name('site.productQuoteStore');
 
     // Notification
     Route::group(['as' => 'site.', 'prefix' => 'user'], function () {

@@ -95,6 +95,15 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
 
     Route::get('product-inquiry', 'InquiryController@log')->name('inquiry.log');
 
+    Route::get('quotes', 'QuoteController@log')->name('quotes.log');
+
+    Route::get('subscription/list', 'SubscriptionController@index')->name('subscription.index');
+    Route::get('subscription/create', 'SubscriptionController@create')->name('subscription.create');
+    Route::get('subscription/edit/{id}', 'SubscriptionController@edit')->name('subscription.edit');
+    Route::post('subscription/update/{id}', 'SubscriptionController@update')->name('subscription.update');
+
+
+
     // Product
     Route::get('products', 'ProductController@index')->name('product.index');
     Route::get('product/edit/{code}', 'ProductController@edit')->name('product.edit');
