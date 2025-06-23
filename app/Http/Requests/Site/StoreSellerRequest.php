@@ -41,6 +41,8 @@ class StoreSellerRequest extends FormRequest
             // 'state'     => ['required', 'max:100'],
             'shop_name' => ['required', 'max:100', 'unique:shops,name'],
             'address'   => ['required', 'max:191'],
+            'shop_email' => ['required', 'max:191', new CheckValidEmail()],
+
         ];
     }
 

@@ -1,9 +1,10 @@
 @extends('admin.layouts.app')
 @section('page_title', __('Menus'))
 @section('css')
-    <link rel="stylesheet" href="{{ asset('Modules/MenuBuilder/Resources/assets/css/style.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('Modules/MenuBuilder/Resources/assets/css/fontawesome-iconpicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('../Modules/MenuBuilder/Resources/assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('../Modules/MenuBuilder/Resources/assets/css/fontawesome-iconpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend\assets\css\font-awesome.min.css') }}">
+    {{-- public\frontend\assets\css\font-awesome.min.css --}}
     <link rel="stylesheet" href="{{ asset('dist/css/menu-builder.min.css') }}">
 @endsection
 @section('content')
@@ -306,8 +307,8 @@
 	});
 </script>
 <script src="{{ asset('datta-able/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
-<script src="{{ asset('Modules/MenuBuilder/Resources/assets/js/scripts.min.js') }}"></script>
-<script src="{{ asset('Modules/MenuBuilder/Resources/assets/js/scripts2.min.js') }}"></script>
-<script src="{{ asset('Modules/MenuBuilder/Resources/assets/js/menu.min.js') }}"></script>
-<script src="{{ asset('Modules/MenuBuilder/Resources/assets/js/fontawesome-iconpicker.min.js') }}"></script>
+<script src="{{ asset('../Modules/MenuBuilder/Resources/assets/js/scripts.min.js') }}"></script>
+<script src="{{ asset('../Modules/MenuBuilder/Resources/assets/js/scripts2.min.js') }}"></script>
+<script src="{{ asset('../Modules/MenuBuilder/Resources/assets/js/menu.min.js') }}"></script>
+<script src="{{ asset('../Modules/MenuBuilder/Resources/assets/js/fontawesome-iconpicker.min.js') }}"></script>
 @endsection

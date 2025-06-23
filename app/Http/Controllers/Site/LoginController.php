@@ -149,7 +149,7 @@ class LoginController extends Controller
         $supportEmail = preference('company_email');
         $message = [
             'Deleted' => __('Invalid email or password'),
-            'Pending' => __('Please verify your email address.') . ' <a class="underline cursor-pointer text-gray-12 user-verification">' . __('Click here to verify.') . '</a>',
+            'Pending' => __('Your acccount is in under review.'),
             'Inactive' => __('Sorry, your account is not activated. Please contact with :x', ['x' =>  "<a href='mailto:" . $supportEmail . "'>" . $supportEmail . '</a>']),
         ];
 

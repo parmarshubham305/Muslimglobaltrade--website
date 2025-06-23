@@ -75,12 +75,12 @@
         <div class="tab-content shadow-none bg-transparent blockable loder-content" id="myTabContent">
 
             @doAction('before_product_editor_data_tab_content')
-
+            
             @foreach ($tabs as $name => $tab)
                 @if (isset($tab['visibility']) && $tab['visibility'] != '1')
                     @continue
                 @endif
-
+                
                 @if (isset($tab['tab_content']))
                     @if (is_callable($tab['tab_content']))
                         {!! $tab['tab_content']() !!}

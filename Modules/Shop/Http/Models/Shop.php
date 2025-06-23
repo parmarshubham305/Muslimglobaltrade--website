@@ -173,7 +173,7 @@ class Shop extends Model
         $data = ['status' => 'fail', 'message' => __('Something went wrong, please try again.')];
         $result = parent::where('id', $id);
         if ($result->exists()) {
-            $result->update(array_intersect_key($request, array_flip((array) ['vendor_id', 'name', 'email', 'website', 'alias', 'address', 'phone', 'fax', 'description', 'status'])));
+            $result->update(array_intersect_key($request, array_flip((array) ['vendor_id', 'organization_type', 'business_type', 'name', 'email', 'website', 'alias', 'address', 'phone', 'fax', 'description', 'status', 'country', 'state', 'city', 'post_code', 'personal_document', 'organization_document'])));
             $result->first()->updateFiles(['isUploaded' => false, 'isOriginalNameRequired' => true, 'thumbnail' => true]);
             self::forgetCache();
 

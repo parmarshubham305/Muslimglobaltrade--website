@@ -179,7 +179,7 @@
                                                     <div class="flex flex-wrap justify-start gap-x-5 ltr:pl-6 ltr:ml-28% ltr:xxs:pl-2.5 ltr:xxs:ml-23% ltr:sm:pl-0 ltr:sm:ml-23% ltr:md:ml-0 ltr:md:pl-0 rtl:pr-6 rtl:mr-28% rtl:xxs:pr-2.5 rtl:xxs:mr-23% rtl:sm:pr-0 rtl:sm:mr-23% rtl:md:mr-0 rtl:md:pr-0">
                                                         <div class="flex flex-wrap text-xl border rounded md:mb-2.5 lg:mb-0 ltr:md:-ml-19% ltr:lg:ml-0 rtl:md:-mr-19% rtl:lg:mr-0">
                                                             @if ($cart['is_individual_sale'] == 0)
-                                                                <a href="javascript:void(0)"
+                                                                {{-- <a href="javascript:void(0)"
                                                                     class="flex items-center justify-center cart-page-item-qty-dec m-auto text-2xl font-thin text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-7 md:h-9 w-8 cursor-pointer outline-none text-center  ltr:rounded-l rtl:rounded-r"
                                                                     data-itemId="{{ $cart['id'] }}"
                                                                     data-index="{{ $cart['index'] }}"
@@ -195,7 +195,7 @@
                                                                                 d="M9 1.2H0L0 0H9V1.2Z" fill="#2C2C2C" />
                                                                         </svg>
                                                                     </span>
-                                                                </a>
+                                                                </a> --}}
                                                             @endif
                                                             <div class="h-7 md:h-9 w-9 cart-item-quantity dm-sans font-medium text-sm text-gray-12 flex items-center justify-center">
                                                                 <p>
@@ -203,7 +203,7 @@
                                                                 </p>
                                                             </div>
                                                             @if ($cart['is_individual_sale'] == 0)
-                                                                <a href="javascript:void(0)"
+                                                                {{-- <a href="javascript:void(0)"
                                                                     class="flex items-center justify-center cart-page-item-qty-inc text-2xl font-thin text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-7 md:h-9 w-8 cursor-pointer ltr:rounded-r rtl:rounded-l"
                                                                     data-itemId="{{ $cart['id'] }}"
                                                                     data-index="{{ $cart['index'] }}"
@@ -223,7 +223,7 @@
                                                                                 fill="#2C2C2C" />
                                                                         </svg>
                                                                     </span>
-                                                                </a>
+                                                                </a> --}}
                                                             @endif
                                                         </div>
                                                     </div>

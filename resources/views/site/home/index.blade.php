@@ -30,6 +30,9 @@
 
 
 @section('content')
+@php
+    
+@endphp
     @foreach ($page->components as $component)
         @include('cms::templates.blocks.' . $component->layout->file)
     @endforeach

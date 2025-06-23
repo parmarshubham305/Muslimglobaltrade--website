@@ -63,6 +63,7 @@
     <script type="text/javascript">
         'use strict';
         var SITE_URL = "{{ URL::to('/admin') }}";
+        var WEB_URL = "{{ URL::to('/') }}";
         var ADMIN_SITE_URL = "{{ URL::to('/admin') }}";
         var currencySymbol = '{!! currency()->symbol !!}';
         var token = '{!! csrf_token() !!}';

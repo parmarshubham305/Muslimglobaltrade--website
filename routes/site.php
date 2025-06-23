@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 // homepage
 Route::group(['middleware' => ['locale']], function () {
     Route::get('/', 'SiteController@index')->name('site.index');
+
     Route::post('review/pagination/fetch', 'SiteController@fetch')->name('fetch.review');
     Route::post('change-language', 'DashboardController@switchLanguage')->middleware(['checkForDemoMode']);
 
@@ -34,6 +35,11 @@ Route::group(['middleware' => ['locale']], function () {
 
     // login register
     Route::get('login', 'LoginController@login');
+    Route::get('/thank-you', function () {
+        return view('site.thank-you');
+    })->name('thank.you');
+
+    Route::get('/thank-you', 'SiteController@thankyou')->name('site.thankYou');
     Route::get('user/login', 'LoginController@login')->name('site.login');
     Route::post('authenticate', 'LoginController@authenticate')->name('site.authenticate');
     Route::get('user-verify/{token}/{from?}', 'LoginController@verification')->name('site.verify');
@@ -118,6 +124,10 @@ Route::group(['middleware' => ['locale']], function () {
     // Quick View
     Route::get('product/quick-view/{id}', 'SiteController@quickView')->name('quickView');
 
+    Route::get('product/inquiry/{id}', 'SiteController@inquiry')->name('inquiry');
+    Route::get('product/quote/{id}', 'SiteController@quote')->name('quote');
+    Route::post('product/quote/store', 'QuoteController@store')->name('site.productQuoteStore');
+
     // Notification
     Route::group(['as' => 'site.', 'prefix' => 'user'], function () {
         Route::get('notifications', 'NotificationController@index')->name('notifications.index');
@@ -140,7 +150,7 @@ Route::group(['middleware' => ['locale']], function () {
     // shipping
     Route::get('/get-shipping', 'SiteController@getShipping');
 
-    //downloadable link
+    // downloadable link
     Route::get('/download', 'SiteController@download')->name('site.downloadProduct');
 
     // Pages
@@ -148,7 +158,7 @@ Route::group(['middleware' => ['locale']], function () {
 
     Route::get('/get-component-product', 'SiteController@getComponentProduct')->name('ajax-product');
 
-    //all categories
+    // all categories
     Route::get('/categories', 'SiteController@allCategories')->name('all.categories');
 });
 
@@ -188,6 +198,10 @@ Route::group(['middleware' => ['site.auth', 'locale', 'permission']], function (
     Route::get('user/addresses', 'AddressController@index')->name('site.address');
     Route::get('user/address/create', 'AddressController@create')->name('site.addressCreate');
     Route::post('user/address/store', 'AddressController@store')->name('site.addressStore');
+
+    Route::post('product/inquiry/store', 'InquiryController@store')->name('site.productInquiryStore');
+
+
     Route::get('user/address/edit/{id}', 'AddressController@edit')->name('site.addressEdit');
     Route::post('user/address/update/{id}', 'AddressController@update')->name('site.addressUpdate');
     Route::post('user/address/delete/{id}', 'AddressController@destroy')->name('site.addressDelete');

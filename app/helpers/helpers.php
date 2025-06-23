@@ -1263,3 +1263,28 @@ if (! function_exists('barcodeData')) {
         ];
     }
 }
+if (! function_exists('getOrgType')) {
+
+    function getOrgType($key = null)
+    {
+        $types = [
+            'manufacturer' => 'Manufacturer',
+            'retailer' => 'Retailer / Dealer & Distributor / Trader / Transport / Wholesaler',
+        ];
+
+        return $key ? ($types[$key] ?? null) : $types;
+    }
+}
+if (! function_exists('getBusinessTypes')) {
+
+    function getBusinessTypes($key = null)
+    {
+        $types = [
+            'corporation' => 'Corporation',
+            'partnership' => 'Partnership',
+            'proprietorship' => 'Proprietorship',
+        ];
+
+        return $key ? ($types[$key] ?? null) : $types;
+    }
+}

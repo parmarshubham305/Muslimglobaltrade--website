@@ -141,7 +141,7 @@
                                                         </li>
                                                     @endif
 
-                                                    @if (auth()->user()->role()->slug == 'super-admin' || (auth()->user()->role()->slug == 'vendor-admin' && optional(auth()->user()->vendors()->first())->status == 'Active'))
+                                                    @if (auth()->user()->role()->slug == 'super-admin' || ((auth()->user()->role()->slug == 'vendor-admin' || auth()->user()->role()->slug == 'free') && optional(auth()->user()->vendors()->first())->status == 'Active'))
                                                         <li class="flex">
                                                             <a href="{{ route('vendor-dashboard') }}" target="_blank" class="inline-flex items-center w-full px-2 py-1 text-sm transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
                                                                 <svg class="w-4 h-4 ltr:mr-3 rtl:ml-3 neg-transition-scale" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

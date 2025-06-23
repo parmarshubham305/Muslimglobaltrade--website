@@ -65,7 +65,7 @@ class RegisteredSellerController extends Controller
         if (preference('vendor_signup') != '1') {
             abort(404);
         }
-        
+
         $response = $this->messageArray(__('Invalid Request'), 'fail');
         $request['password'] = \Hash::make($request->password);
         $request['status'] = preference('vendor_default_signup_status') ?? 'Pending';
@@ -93,19 +93,38 @@ class RegisteredSellerController extends Controller
 
             // Store user information
             if (empty($user)) {
-                $user_id = (new User())->store($request->only('name', 'email', 'password', 'activation_code', 'activation_otp', 'status'));
+                $user_id = (new User())->store($request->only('name', 'email', 'gender', 'password', 'activation_code', 'activation_otp', 'status'));
             } else {
                 $user_id = $user->id;
             }
             // Store vendor information
-            $data['vendorData'] = $request->only('name', 'email', 'phone', 'formal_name', 'website', 'status');
+            $data['vendorData'] = $request->only('name', 'email', 'phone', 'formal_name', 'website');
             $vendorId = (new Vendor())->store($data);
 
             // Store shop information
             $request['vendor_id'] = $vendorId;
-            $alias = cleanedUrl($request->name);
+            $alias = cleanedUrl($request->shop_name);
             $request->merge(['alias' => $alias]);
-            (new Shop())->store($request->only('name', 'vendor_id', 'email', 'website', 'alias', 'phone', 'address', 'country', 'state', 'city', 'post_code'));
+            $shopData = $request->only([
+                'name', 'vendor_id', 'website', 'alias', 'phone', 'address',
+                'country', 'state', 'city', 'post_code', 'organization_type', 'business_type',
+            ]);
+            $shopData['email'] = $request->input('shop_email');
+            $shopData['phone'] = $request->input('shop_number');
+            $shopData['name'] = $request->input('shop_name');
+
+            if ($request->has('personal_document')) {
+                $file = $request->personal_document;
+                $personalDocument = Storage::disk('public')->put('seller_documents/' . $user_id, $file);
+                $shopData['personal_document'] = $personalDocument;
+            }
+            if ($request->has('organization_document')) {
+                $file = $request->organization_document;
+                $organizationDocument = Storage::disk('public')->put('seller_documents/' . $user_id, $file);
+                $shopData['organization_document'] = $organizationDocument;
+            }
+
+            (new Shop())->store($shopData);
 
             if (! empty($user_id)) {
                 $roleId = Role::where('slug', 'vendor-admin')->first()->id;
@@ -115,30 +134,30 @@ class RegisteredSellerController extends Controller
                     (new RoleUser())->update($roles);
                 }
 
-                 //--- Seller Extra Fields
-                $sellerExtraData = $request->only('organization_type', 'business_type', 'website', 'documents');
-                $sellerExtraData['seller_id'] = $user_id;
-                $documents = [];
+                // --- Seller Extra Fields
+                // $sellerExtraData = $request->only('organization_type', 'business_type', 'website', 'documents');
+                // $sellerExtraData['seller_id'] = $user_id;
+                // $documents = [];
 
-                if($request->has('personal_document')) {
-                    $file = $request->personal_document;
-                    $personalDocument = Storage::disk("public")->put('seller_documents/'.$user_id, $file); 
-                    $documents['personal_document'] = $personalDocument;
-                }
-                if($request->has('organization_document')) {
-                    $file = $request->organization_document;
-                    $organizationDocument = Storage::disk("public")->put('seller_documents/'.$user_id, $file); 
-                    $documents['organization_document'] = $organizationDocument;
-                }
-                if($documents) {
-                    $sellerExtraData['documents'] = json_encode($documents);
-                }
+                // if($request->has('personal_document')) {
+                //     $file = $request->personal_document;
+                //     $personalDocument = Storage::disk("public")->put('seller_documents/'.$user_id, $file);
+                //     $documents['personal_document'] = $personalDocument;
+                // }
+                // if($request->has('organization_document')) {
+                //     $file = $request->organization_document;
+                //     $organizationDocument = Storage::disk("public")->put('seller_documents/'.$user_id, $file);
+                //     $documents['organization_document'] = $organizationDocument;
+                // }
+                // if($documents) {
+                //     $sellerExtraData['documents'] = json_encode($documents);
+                // }
 
-                (new SellerExtraField())->store($sellerExtraData);
-                
+                // (new SellerExtraField())->store($sellerExtraData);
+
                 $request['user_id'] = $user_id;
                 (new VendorUser())->store($request->only('vendor_id', 'user_id', 'status'));
-                (new BeASellerMailService())->send($request);
+                // (new BeASellerMailService())->send($request);
             }
             \DB::commit();
             $response = $this->messageArray(__('The :x has been successfully saved.', ['x' => __('Vendor')]), 'success');
@@ -272,11 +291,11 @@ class RegisteredSellerController extends Controller
             return redirect()->back()->withErrors(['otp' => __('Your OTP is invalid.')]);
         }
 
-        $user->update(['activation_otp' => null, 'activation_code' => null, 'status' => 'Active', 'email_verified_at' => now()]);
+        $user->update(['activation_otp' => null, 'activation_code' => null, 'status' => 'Pending', 'email_verified_at' => now()]);
         User::first()->notify(new SellerRequestToAdminNotification($user));
         Session::forget('martvill-seller');
 
-        return redirect()->route('login');
+        return redirect()->route('site.thankYou');
     }
 
     /**
@@ -297,7 +316,7 @@ class RegisteredSellerController extends Controller
             return $this->login($msg);
         }
 
-        (new User())->updateUser(['status' => 'Active', 'activation_code' => null, 'activation_otp' => null, 'email_verified_at' => now()], $user->id);
+        (new User())->updateUser(['status' => 'Pending', 'activation_code' => null, 'activation_otp' => null, 'email_verified_at' => now()], $user->id);
         $msg = __('Your account is activated, please login.');
         User::first()->notify(new SellerRequestToAdminNotification($user));
         Session::forget('martvill-seller');

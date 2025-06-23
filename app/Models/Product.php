@@ -44,10 +44,14 @@ class Product extends Model
      */
     protected $table = 'products';
 
+    protected $casts = [
+        'quantity_pack' => 'array',
+    ];
+
     protected $fillable = [
         'code', 'name', 'description', 'summary', 'review_count', 'review_average', 'available_from', 'available_to', 'vendor_id',
         'brand_id', 'status', 'total_sales', 'total_wish', 'regular_price', 'sale_price', 'sku', 'shop_id', 'parent_id', 'slug',
-        'sale_from', 'sale_to', 'featured', 'type', 'manage_stocks', 'total_stocks', 'menu_order',
+        'sale_from', 'sale_to', 'featured', 'type', 'manage_stocks', 'total_stocks', 'quantity_pack', 'menu_order',
     ];
 
     /**
@@ -209,6 +213,11 @@ class Product extends Model
     public function vendor()
     {
         return $this->belongsTo('App\Models\Vendor', 'vendor_id');
+    }
+
+    public function inquiries()
+    {
+        return $this->hasMany('App\Models\Inquiry'::class, 'product_id');
     }
 
     /**

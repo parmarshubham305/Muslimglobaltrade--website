@@ -22,10 +22,6 @@ use App\Rules\{
 };
 use Modules\MediaManager\Http\Models\ObjectFile;
 use Spatie\Activitylog\LogOptions;
-use App\Models\{
-    Wishlist,
-    Review
-};
 use Validator;
 use DB;
 use App\Traits\ModelTrait;
@@ -965,5 +961,19 @@ class User extends Authenticatable implements MustVerifyEmail
     public function routeNotificationForMail(Notification $notification)
     {
         return false;
+    }
+
+    /**
+     * Relation with RoleUser model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function plan()
+    {
+        // return $this->hasOne('App\Models\Subscription', 'plan_');
+        // return $this->hasMany(Subscription::class, 'id' ,'plan_id');
+        // return $this->belongsToMany(Role::class, 'role_users');
+        return $this->hasOne(Subscription::class, 'id', 'subscription_id');
+        // return $this->hasOne('App\Models\VendorUser', 'user_id', 'id');
     }
 }

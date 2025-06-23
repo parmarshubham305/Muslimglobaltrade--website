@@ -93,6 +93,17 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::get('profile', 'UserController@profile')->name('users.profile');
     Route::post('user/update-profile-password/{id}', 'UserController@updateProfilePassword')->name('users.profilePassword');
 
+    Route::get('product-inquiry', 'InquiryController@log')->name('inquiry.log');
+
+    Route::get('quotes', 'QuoteController@log')->name('quotes.log');
+
+    Route::get('subscription/list', 'SubscriptionController@index')->name('subscription.index');
+    Route::get('subscription/create', 'SubscriptionController@create')->name('subscription.create');
+    Route::get('subscription/edit/{id}', 'SubscriptionController@edit')->name('subscription.edit');
+    Route::post('subscription/update/{id}', 'SubscriptionController@update')->name('subscription.update');
+
+
+
     // Product
     Route::get('products', 'ProductController@index')->name('product.index');
     Route::get('product/edit/{code}', 'ProductController@edit')->name('product.edit');
@@ -103,7 +114,7 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::delete('product/delete/{code}/action', 'ProductController@forceDeleteProduct')->middleware(['checkForDemoMode'])->name('product.force-delete');
     Route::get('pending/products', 'ProductController@index')->name('product.pending');
 
-    //duplicate product
+    // duplicate product
     Route::get('product/duplicate/{code}', 'ProductController@duplicate')->name('product.duplicate');
 
     // Vendor Admin Routes
@@ -116,6 +127,7 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::match(['GET', 'POST'], 'vendors/import', 'VendorController@import')->name('vendors.import');
     Route::get('vendors/pdf', 'VendorController@pdf')->name('vendors.pdf');
     Route::get('vendors/csv', 'VendorController@csv')->name('vendors.csv');
+    Route::post('vendors/updateStatus', 'VendorController@updateStatus')->name('vendors.updateStatus');
 
     // Brand
     Route::get('brands', 'BrandController@index')->name('brands.index');
@@ -264,13 +276,13 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
     Route::post('product-setting/inventory', 'ProductSettingController@inventory')->name('product.setting.inventory');
     Route::post('product-setting/vendor', 'ProductSettingController@vendor')->name('product.setting.vendor');
 
-    //Order Setting
+    // Order Setting
     Route::match(['GET', 'POST'], 'order-setting', 'OrderSettingController@index')->name('order.setting.option');
 
-    //Invoice Setting
+    // Invoice Setting
     Route::match(['GET', 'POST'], 'invoice-setting', 'InvoiceSettingController@index')->name('invoice.setting.option');
 
-    //Account Setting
+    // Account Setting
     Route::match(['GET', 'POST'], 'account-setting', 'AccountSettingController@index')->name('account.setting.option');
 
     // downloadable products
@@ -342,11 +354,11 @@ Route::group(['middleware' => ['auth', 'locale', 'permission']], function () {
 
     Route::get('notifications/log', 'NotificationController@log')->name('notifications.log');
     Route::delete('notifications/log/{id}', 'NotificationController@destroyLog')->name('notifications.log.destroy');
-    
+
     Route::get('notifications/setting', 'NotificationController@setting')->name('notifications.setting');
     Route::post('notifications/setting', 'NotificationController@updateSetting')->name('notifications.setting.update');
 
-    //barcode
+    // barcode
     Route::match(['get', 'post'], '/barcode/product', 'BarcodeController@product')->name('barcode.product');
     Route::match(['get', 'post'], '/barcode/settings', 'BarcodeController@settings')->name('barcode.settings');
     Route::match(['get', 'post'], '/barcode/product-search', 'BarcodeController@search')->name('barcode.product.search');

@@ -112,6 +112,15 @@ $(document).on('click', '.disable_a_href', function() {
     })
 })
 
+ 
+$(document).on('click', 'input[name="quantity_pack"]', function() {
+    // alert($(this).val());
+    let itemCode = $(this).val();
+    // if (parseFloat($('#cart-item-details-'+itemCode+' .cart-item-quantity').text()) >= 1 && parseInt($(this).attr('data-isIndividual')) != 1 || parseFloat($('#cart-item-details-'+itemCode+' .cart-item-quantity').text()) < 1) {
+    qty = itemCode;
+        // $('#cart-item-details-'+itemCode+' .cart-item-quantity').text(qty);
+    // }
+});
 $(document).on('click', '.cart-item-qty-inc', function() {
     let itemCode = $(this).attr('data-itemCode');
     if (parseFloat($('#cart-item-details-'+itemCode+' .cart-item-quantity').text()) >= 1 && parseInt($(this).attr('data-isIndividual')) != 1 || parseFloat($('#cart-item-details-'+itemCode+' .cart-item-quantity').text()) < 1) {
@@ -1071,12 +1080,14 @@ if ($('.main-body .page-wrapper').find('#cart-details-container').length) {
         if(isAllChildChecked(element)) {
             element.classList.add("border-gray-12");
             element.querySelector('.cart-shop').checked = true;
+        }else {
+            selectChildItems(element);
         }
     });
 
     updateTotalBox();
 
-    checkingCheckbox(false);
+    checkingCheckbox(true);
 }
 
 function couponDisplay()
@@ -1105,3 +1116,43 @@ function TaxDisplay()
         $('#customTax').addClass('display-none');
     }
 }
+
+$(document)
+    .off("click", ".open-inquiry-modal")
+    .on("click", ".open-inquiry-modal", function () {
+        $(".placeholder-loader").css("display", "block");
+        $(".item-view-content").css("display", "none");
+        $("#view-modal").css("display", "flex");
+        var itemCode = $(this).attr("data-itemCode");
+        $.ajax({
+            url: SITE_URL + "/product/inquiry/" + itemCode,
+            type: "GET",
+            success: function (data) {
+                isGroupProduct = 0;
+                $(".placeholder-loader").css("display", "none");
+                $(".item-view-content").css("display", "block");
+                $("#item-view-load").html(data);
+                $("#view-modal").css("display", "flex");
+            },
+        });
+    });
+
+$(document)
+    .off("click", ".open-quote-modal")
+    .on("click", ".open-quote-modal", function () {
+        $(".placeholder-loader").css("display", "block");
+        $(".item-view-content").css("display", "none");
+        $("#view-modal").css("display", "flex");
+        var itemCode = $(this).attr("data-itemCode");
+        $.ajax({
+            url: SITE_URL + "/product/quote/" + itemCode,
+            type: "GET",
+            success: function (data) {
+                isGroupProduct = 0;
+                $(".placeholder-loader").css("display", "none");
+                $(".item-view-content").css("display", "block");
+                $("#item-view-load").html(data);
+                $("#view-modal").css("display", "flex");
+            },
+        });
+    });

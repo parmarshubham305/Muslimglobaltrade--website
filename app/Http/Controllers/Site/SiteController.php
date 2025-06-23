@@ -479,6 +479,33 @@ class SiteController extends Controller
     }
 
     /**
+     * Product Quick view
+     *
+     * @return string|void
+     */
+    public function inquiry(Request $request, $code)
+    {
+        $request['code'] = $code;
+        $product = ProductAction::execute('getProductWithAttributeAndVariations', $request);
+        if (! $product) {
+            abort(404);
+        }
+        $data = (new ProductDetailResource($product))->toArray(null);
+        $data['product'] = $product;
+        $data['productView'] = true;
+        if (! empty($data)) {
+            if ($request->ajax()) {
+                return view('site.layouts.includes.inquiry_view', $data)->render();
+            }
+        }
+    }
+
+    public function inquiryStore(Request $request)
+    {
+        dd($request);
+    }
+
+    /**
      * Coupon
      *
      * @return render view
@@ -488,6 +515,13 @@ class SiteController extends Controller
         $data = Coupon::getCoupons(true, true);
 
         return view('site.coupon.index', $data);
+    }
+
+    public function thankyou()
+    {
+        $data = [];
+
+        return view('site.thank-you', $data);
     }
 
     public function getComponentProduct(Request $request)
@@ -596,5 +630,27 @@ class SiteController extends Controller
         $data['page'] = $homeService->home();
 
         return view('site.all_categories.all_categories', $data);
+    }
+
+    /**
+     * Product Quick view
+     *
+     * @return string|void
+     */
+    public function quote(Request $request, $code)
+    {
+        $request['code'] = $code;
+        $product = ProductAction::execute('getProductWithAttributeAndVariations', $request);
+        if (! $product) {
+            abort(404);
+        }
+        $data = (new ProductDetailResource($product))->toArray(null);
+        $data['product'] = $product;
+        $data['productView'] = true;
+        if (! empty($data)) {
+            if ($request->ajax()) {
+                return view('site.layouts.includes.quote_view', $data)->render();
+            }
+        }
     }
 }

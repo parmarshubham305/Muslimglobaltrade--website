@@ -450,64 +450,170 @@ class VendorDashboardReportService
             $key = 'widget';
         }
 
-        $data = [
-            'wallet' => [
-                'label' => __('Wallet'),
-                'visibility' => true,
-                'content' => 'vendor.dashbox.wallet',
-                'gs' => ['x' => 0, 'y' => 0, 'width' => 4, 'height' => 1],
-            ],
-            'this_month_sale' => [
-                'label' => __('Total Sales'),
-                'content' => 'vendor.dashbox.this-month-sale',
-                'gs' => ['x' => 4, 'y' => 0, 'width' => 4, 'height' => 1],
-            ],
-            'this_month_order_count' => [
-                'label' => __('Orders'),
-                'content' => 'vendor.dashbox.this-month-order-count',
-                'gs' => ['x' => 8, 'y' => 0, 'width' => 4, 'height' => 1],
-            ],
-            'new_refunds' => [
-                'label' => __('Refund Request'),
-                'content' => 'vendor.dashbox.new-refunds',
-                'gs' => ['x' => 0, 'y' => 1, 'width' => 4, 'height' => 1],
-            ],
-            'new_products' => [
-                'label' => __('Products'),
-                'content' => 'vendor.dashbox.new-products',
-                'gs' => ['x' => 4, 'y' => 1, 'width' => 4, 'height' => 1],
-            ],
-            'rating' => [
-                'label' => __('Rating'),
-                'content' => 'vendor.dashbox.rating',
-                'gs' => ['x' => 8, 'y' => 1, 'width' => 4, 'height' => 1],
-            ],
-            'heatmap' => [
-                'label' => __('Sales Per Day'),
-                'content' => 'admin.dashboxes.heatmap',
-                'gs' => ['x' => 0, 'y' => 2, 'width' => 6, 'height' => 5],
-            ],
-            'donut_chart' => [
-                'label' => __('Monthly Order Status'),
-                'content' => 'admin.dashboxes.donut-chart',
-                'gs' => ['x' => 6, 'y' => 2, 'width' => 6, 'height' => 5],
-            ],
-            'most_sold_product' => [
-                'label' => __('Most Sold Product'),
-                'content' => 'admin.dashboxes.most-sold-products',
-                'gs' => ['x' => 0, 'y' => 7, 'width' => 4, 'height' => 4],
-            ],
-            'most_sold_brand' => [
-                'label' => __('Most Sold Brand'),
-                'content' => 'admin.dashboxes.most-sold-brands',
-                'gs' => ['x' => 4, 'y' => 7, 'width' => 4, 'height' => 4],
-            ],
-            'most_active_user' => [
-                'label' => __('Popular Customer'),
-                'content' => 'admin.dashboxes.most-active-users',
-                'gs' => ['x' => 8, 'y' => 7, 'width' => 4, 'height' => 4],
-            ],
-        ];
+        $planId = auth()->user()->subscription_id;
+
+        $data = [];
+        if ($planId == '1') {
+            $data = [
+                'this_month_sale' => [
+                    'label' => __('Total Sales'),
+                    'content' => 'vendor.dashbox.this-month-sale',
+                    'gs' => ['x' => 4, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'this_month_order_count' => [
+                    'label' => __('Orders'),
+                    'content' => 'vendor.dashbox.this-month-order-count',
+                    'gs' => ['x' => 8, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'new_refunds' => [
+                    'label' => __('Refund Request'),
+                    'content' => 'vendor.dashbox.new-refunds',
+                    'gs' => ['x' => 0, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+            ];
+        } elseif ($planId == '2') {
+            $data = [
+                'this_month_order_count' => [
+                    'label' => __('Orders'),
+                    'content' => 'vendor.dashbox.this-month-order-count',
+                    'gs' => ['x' => 8, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'this_month_sale' => [
+                    'label' => __('Total Sales'),
+                    'content' => 'vendor.dashbox.this-month-sale',
+                    'gs' => ['x' => 4, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'this_month_order_count' => [
+                    'label' => __('Orders'),
+                    'content' => 'vendor.dashbox.this-month-order-count',
+                    'gs' => ['x' => 8, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'new_refunds' => [
+                    'label' => __('Refund Request'),
+                    'content' => 'vendor.dashbox.new-refunds',
+                    'gs' => ['x' => 0, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+                'rating' => [
+                    'label' => __('Rating'),
+                    'content' => 'vendor.dashbox.rating',
+                    'gs' => ['x' => 8, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+                'donut_chart' => [
+                    'label' => __('Monthly Order Status'),
+                    'content' => 'admin.dashboxes.donut-chart',
+                    'gs' => ['x' => 6, 'y' => 2, 'width' => 6, 'height' => 5],
+                ],
+            ];
+        } elseif ($planId == '3') {
+            $data = [
+                'this_month_order_count' => [
+                    'label' => __('Orders'),
+                    'content' => 'vendor.dashbox.this-month-order-count',
+                    'gs' => ['x' => 8, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'this_month_sale' => [
+                    'label' => __('Total Sales'),
+                    'content' => 'vendor.dashbox.this-month-sale',
+                    'gs' => ['x' => 4, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'this_month_order_count' => [
+                    'label' => __('Orders'),
+                    'content' => 'vendor.dashbox.this-month-order-count',
+                    'gs' => ['x' => 8, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'new_refunds' => [
+                    'label' => __('Refund Request'),
+                    'content' => 'vendor.dashbox.new-refunds',
+                    'gs' => ['x' => 0, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+                'new_products' => [
+                    'label' => __('Products'),
+                    'content' => 'vendor.dashbox.new-products',
+                    'gs' => ['x' => 4, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+                'rating' => [
+                    'label' => __('Rating'),
+                    'content' => 'vendor.dashbox.rating',
+                    'gs' => ['x' => 8, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+                'donut_chart' => [
+                    'label' => __('Monthly Order Status'),
+                    'content' => 'admin.dashboxes.donut-chart',
+                    'gs' => ['x' => 6, 'y' => 2, 'width' => 6, 'height' => 5],
+                ],
+                'most_sold_product' => [
+                    'label' => __('Most Sold Product'),
+                    'content' => 'admin.dashboxes.most-sold-products',
+                    'gs' => ['x' => 0, 'y' => 7, 'width' => 4, 'height' => 4],
+                ],
+                'most_sold_brand' => [
+                    'label' => __('Most Sold Brand'),
+                    'content' => 'admin.dashboxes.most-sold-brands',
+                    'gs' => ['x' => 4, 'y' => 7, 'width' => 4, 'height' => 4],
+                ],
+            ];
+        } else {
+            $data = [
+                'wallet' => [
+                    'label' => __('Wallet'),
+                    'visibility' => true,
+                    'content' => 'vendor.dashbox.wallet',
+                    'gs' => ['x' => 0, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'this_month_sale' => [
+                    'label' => __('Total Sales'),
+                    'content' => 'vendor.dashbox.this-month-sale',
+                    'gs' => ['x' => 4, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'this_month_order_count' => [
+                    'label' => __('Orders'),
+                    'content' => 'vendor.dashbox.this-month-order-count',
+                    'gs' => ['x' => 8, 'y' => 0, 'width' => 4, 'height' => 1],
+                ],
+                'new_refunds' => [
+                    'label' => __('Refund Request'),
+                    'content' => 'vendor.dashbox.new-refunds',
+                    'gs' => ['x' => 0, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+                'new_products' => [
+                    'label' => __('Products'),
+                    'content' => 'vendor.dashbox.new-products',
+                    'gs' => ['x' => 4, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+                'rating' => [
+                    'label' => __('Rating'),
+                    'content' => 'vendor.dashbox.rating',
+                    'gs' => ['x' => 8, 'y' => 1, 'width' => 4, 'height' => 1],
+                ],
+                'heatmap' => [
+                    'label' => __('Sales Per Day'),
+                    'content' => 'admin.dashboxes.heatmap',
+                    'gs' => ['x' => 0, 'y' => 2, 'width' => 6, 'height' => 5],
+                ],
+                'donut_chart' => [
+                    'label' => __('Monthly Order Status'),
+                    'content' => 'admin.dashboxes.donut-chart',
+                    'gs' => ['x' => 6, 'y' => 2, 'width' => 6, 'height' => 5],
+                ],
+                'most_sold_product' => [
+                    'label' => __('Most Sold Product'),
+                    'content' => 'admin.dashboxes.most-sold-products',
+                    'gs' => ['x' => 0, 'y' => 7, 'width' => 4, 'height' => 4],
+                ],
+                'most_sold_brand' => [
+                    'label' => __('Most Sold Brand'),
+                    'content' => 'admin.dashboxes.most-sold-brands',
+                    'gs' => ['x' => 4, 'y' => 7, 'width' => 4, 'height' => 4],
+                ],
+                'most_active_user' => [
+                    'label' => __('Popular Customer'),
+                    'content' => 'admin.dashboxes.most-active-users',
+                    'gs' => ['x' => 8, 'y' => 7, 'width' => 4, 'height' => 4],
+                ],
+            ];
+        }
+        // dd(auth()->user()->subscription_id);
+
 
         $data = apply_filters('vendor_dashboard_widget', $data);
 

@@ -74,7 +74,25 @@ class ProductController extends Controller
 
             return view('errors.installer-error', ['message' => __('This product is facing license validation issue.<br>Please contact admin to fix the issue.')]);
         }
+        // dd(auth()->user()->load('plan'));
+        $userWithPlan = auth()->user()->load('plan');
 
+        // dd($userWithPlan->plan);
+        $plan = $userWithPlan->plan;
+        $planFeatures = json_decode($plan->features);
+        // dd($planFeatures->products);
+
+        $vendorId = optional(auth()->user()->vendor())->vendor_id;
+        if (is_null($vendorId)) {
+            abort(403);
+        }
+
+        if (Product::where('vendor_id', $vendorId)->count() >= $planFeatures->products) {
+            return redirect()->route('vendor.plan');
+            // return view('errors.subscription', ['message' => __('This product is facing license validation issue.<br>Please contact admin to fix the issue.')]);
+        }
+        // dd(Product::where('vendor_id', $vendorId)->count());
+        // if($planFeatures->products >)
         do_action('before_vendor_create_product');
 
         if ($request->isMethod('get')) {
@@ -259,7 +277,7 @@ class ProductController extends Controller
             $data['shippings'] = ShippingClass::getAll();
         }
 
-        //product tag
+        // product tag
         $data['tags'] = $product->tags()->pluck('name', 'id')->toArray();
 
         // Category options
@@ -389,8 +407,9 @@ class ProductController extends Controller
 
     public function ncpc()
     {
-		p_c_v();
-		return false;
+        p_c_v();
+
+        return false;
     }
 
     /**
